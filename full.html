@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>完整作品集 · 圈圈（陈玉倩）</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="site-head">
+  <div class="container head-inner">
+    <a class="brand" href="index.html"><span class="mark"></span>圈圈（陈玉倩）<small>品牌市场全链路</small></a>
+    <nav class="site-nav" aria-label="页面导航">
+      <a href="index.html">首页</a>
+      <a href="about.html">关于</a>
+      <a href="cases.html">案例</a>
+      <a href="full.html" class="active">完整版</a>
+      <a href="videos.html">视频</a>
+      <a href="contact.html">联系</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="deck-viewer">
+    <div class="container viewer-head">
+      <div class="viewer-title">
+        <span class="kicker"><span class="dot"></span>FULL PORTFOLIO · 49 PAGES</span>
+        <h1>完整作品集</h1>
+        <p class="sub">圈圈（陈玉倩）· 品牌市场全链路操盘案例集</p>
+      </div>
+      <div class="viewer-tools">
+        <button id="autoplayBtn" class="tool-btn" type="button" title="自动放映" aria-label="自动放映" aria-pressed="false">
+          <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"></path></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"></path></svg>
+        </button>
+        <button id="fullscreenBtn" class="tool-btn" type="button" title="全屏" aria-label="全屏">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M16 3h3a2 2 0 0 1 2 2v3"></path><path d="M8 21H5a2 2 0 0 1-2-2v-3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path></svg>
+        </button>
+        <span class="page-indicator" id="pageIndicator">01 / 49</span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="deck-frame" id="deckFrame">
+        <iframe id="deckIframe" src="deck.html" title="品牌市场全链路作品集"></iframe>
+        <button id="prevBtn" class="deck-arrow left" type="button" title="上一页" aria-label="上一页">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+        </button>
+        <button id="nextBtn" class="deck-arrow right" type="button" title="下一页" aria-label="下一页">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+        <div class="deck-progress"><i id="progressBar"></i></div>
+      </div>
+      <div class="section-jump" id="sectionJump"></div>
+    </div>
+  </section>
+</main>
+<footer class="site-foot">圈圈（陈玉倩）· 品牌市场全链路操盘案例集</footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

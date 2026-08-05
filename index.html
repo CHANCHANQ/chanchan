@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>圈圈（陈玉倩）· 品牌市场全链路作品集</title>
+<style>
+  :root{
+    --ink:#101828;
+    --muted:#5B6472;
+    --soft:#667085;
+    --line:#E3E6EA;
+    --paper:#F4F5F7;
+    --white:#FFFFFF;
+    --blue:#328CFF;
+    --orange:#FF7043;
+    --teal:#009688;
+    --purple:#7B1FA2;
+    --navy:#1A1A2E;
+    --dark:#101828;
+  }
+  *{box-sizing:border-box; margin:0; padding:0; letter-spacing:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit;}
+  img, video{display:block; max-width:100%;}
+  .container{max-width:1240px; margin:0 auto; padding:0 24px;}
+  .kicker{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12px; font-weight:700; color:var(--soft); text-transform:uppercase;
+  }
+  .kicker .dot{width:8px; height:8px; background:var(--blue); display:inline-block;}
+  .site-head{
+    position:sticky; top:0; z-index:60;
+    background:rgba(255,255,255,.96);
+    border-bottom:1px solid var(--line);
+  }
+  .head-inner{height:60px; display:flex; align-items:center; justify-content:space-between; gap:20px;}
+  .brand{display:flex; align-items:center; gap:9px; font-size:15px; font-weight:800;}
+  .brand .mark{width:9px; height:9px; background:var(--blue); display:inline-block; flex:none;}
+  .brand small{font-size:11px; font-weight:600; color:var(--soft);}
+  .site-nav{display:flex; align-items:center; gap:4px; overflow-x:auto;}
+  .site-nav a{
+    padding:8px 11px; font-size:13px; font-weight:600; color:var(--muted);
+    white-space:nowrap; border-radius:8px;
+  }
+  .site-nav a:hover{color:var(--ink); background:#F0F2F5;}
+  .overview-section{background:var(--white); padding:40px 0 58px; border-bottom:1px solid var(--line);}
+  .overview-head{display:flex; align-items:flex-end; justify-content:space-between; gap:22px; margin-bottom:22px; flex-wrap:wrap;}
+  .overview-title h1{font-size:32px; line-height:1.2; font-weight:800; margin-top:8px;}
+  .overview-title .sub{font-size:14px; font-weight:600; color:var(--muted); margin-top:8px;}
+  .overview-actions{display:flex; flex-wrap:wrap; gap:10px;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:11px 16px; border-radius:8px; font-size:13px; font-weight:700;
+    cursor:pointer; border:1px solid transparent;
+  }
+  .btn-primary{background:var(--blue); color:#fff;}
+  .btn-primary:hover{background:#1F7DF5;}
+  .btn-outline{background:#fff; color:var(--ink); border-color:#D8DDE3;}
+  .btn-outline:hover{border-color:#AEB6C0; background:#F8F9FA;}
+  .select-frame{
+    position:relative; width:100%; aspect-ratio:16/9;
+    background:#0E1116; border:1px solid #D8DDE3; border-radius:8px;
+    overflow:hidden; box-shadow:0 18px 46px rgba(16,24,40,.18);
+  }
+  .select-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0; background:#fff;}
+  .media-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; margin-top:18px;}
+  .media-card{
+    background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden;
+  }
+  .media-thumb{position:relative; display:block; aspect-ratio:3/4; background:#F1F3F6; overflow:hidden;}
+  .media-thumb img{width:100%; height:100%; object-fit:cover;}
+  .media-meta{display:block; padding:11px 13px 13px; border-top:1px solid var(--line);}
+  .media-title{display:block; font-size:13px; font-weight:800; line-height:1.45;}
+  .media-tag{display:block; font-size:12px; color:var(--soft); font-weight:600; margin-top:5px;}
+  .cases-section{padding:64px 0; border-bottom:1px solid var(--line);}
+  .sec-head{display:flex; align-items:flex-end; justify-content:space-between; gap:18px; margin-bottom:28px; flex-wrap:wrap;}
+  .sec-head h2{font-size:26px; line-height:1.25; font-weight:800; margin-top:8px;}
+  .sec-head .sec-note{font-size:13px; color:var(--soft); font-weight:600; max-width:520px; line-height:1.7;}
+  .case-grid{columns:3; column-gap:14px;}
+  .case-card{
+    background:#fff; border:1px solid var(--line); border-radius:8px;
+    overflow:hidden; display:block; break-inside:avoid; margin-bottom:14px;
+    transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  }
+  .case-card:hover{transform:translateY(-2px); border-color:#C2C9D2; box-shadow:0 12px 26px rgba(16,24,40,.10);}
+  .case-thumb{position:relative; width:100%; background:#F1F3F6; overflow:hidden;}
+  .case-thumb img{width:100%; height:auto; object-fit:contain; display:block;}
+  .case-meta{padding:12px 14px 14px; border-top:1px solid var(--line);}
+  .case-name{font-size:14px; font-weight:800; line-height:1.45;}
+  .case-tag{display:flex; align-items:center; gap:6px; font-size:12px; color:var(--soft); margin-top:6px; font-weight:600;}
+  .case-tag .tag-dot{width:7px; height:7px; display:inline-block; flex:none;}
+  .videos-section{background:#fff; padding:64px 0; border-bottom:1px solid var(--line);}
+  .video-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;}
+  .video-card{
+    background:var(--paper); border:1px solid var(--line); border-radius:8px; overflow:hidden;
+    cursor:pointer;
+  }
+  .video-frame{position:relative; aspect-ratio:4/5; background:#0E1116; overflow:hidden;}
+  .video-frame video{width:100%; height:100%; object-fit:contain; background:#000;}
+  .play-btn{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:54px; height:54px; border-radius:50%;
+    border:1px solid rgba(255,255,255,.5); background:rgba(16,24,40,.62);
+    color:#fff; display:grid; place-items:center; cursor:pointer;
+    transition:opacity .2s, background .2s;
+  }
+  .play-btn svg{width:22px; height:22px; margin-left:2px;}
+  .video-card:hover .play-btn{background:rgba(16,24,40,.82);}
+  .video-card.playing .play-btn{opacity:0; pointer-events:none;}
+  .video-meta{padding:13px 14px; border-top:1px solid var(--line);}
+  .video-meta .v-title{font-size:14px; font-weight:800;}
+  .video-meta .v-tag{font-size:12px; color:var(--soft); font-weight:600; margin-top:4px;}
+  .cap-section{padding:64px 0; border-bottom:1px solid var(--line);}
+  .contact-section{background:var(--dark); color:#fff; padding:64px 0;}
+  .contact-section .kicker{color:#A5ADB8;}
+  .contact-section .kicker .dot{background:var(--orange);}
+  .contact-inner h2{font-size:26px; font-weight:800; margin-top:8px;}
+  .contact-cols{
+    display:grid; grid-template-columns:1fr 1fr; gap:28px;
+    border-top:1px solid rgba(255,255,255,.18); margin-top:26px; padding-top:24px;
+  }
+  .c-label{display:block; font-size:12px; font-weight:700; color:#A5ADB8;}
+  .contact-cols p{font-size:16px; font-weight:700; line-height:1.7; margin-top:8px;}
+  .site-foot{background:#0B0D11; color:#8A93A1; text-align:center; font-size:12px; padding:20px 24px;}
+  @media (max-width: 980px){
+    .case-grid{columns:2;}
+    .video-grid{grid-template-columns:repeat(2, 1fr);}
+    .media-grid{grid-template-columns:repeat(2, 1fr);}
+  }
+  @media (max-width: 720px){
+    .overview-head{flex-direction:column; align-items:flex-start;}
+    .overview-title h1{font-size:26px;}
+    .case-grid{columns:2;}
+    .video-grid{grid-template-columns:1fr;}
+    .video-frame{aspect-ratio:16/10;}
+    .media-grid{grid-template-columns:1fr 1fr;}
+    .brand small{display:none;}
+  }
+  @media (max-width: 520px){
+    .case-grid{columns:2; column-gap:10px;}
+    .case-card{margin-bottom:10px;}
+    .case-meta{padding:10px 11px 12px;}
+    .case-name{font-size:13px;}
+    .contact-cols{grid-template-columns:1fr;}
+    .site-nav a{padding:8px 8px; font-size:12px;}
+  }
+</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="container head-inner">
+    <a class="brand" href="#deck"><span class="mark"></span>圈圈（陈玉倩）<small>品牌市场全链路</small></a>
+    <nav class="site-nav" aria-label="页面导航">
+      <a href="#deck">作品集</a>
+      <a href="about.html">关于</a>
+      <a href="cases.html">案例</a>
+      <a href="full.html">完整版</a>
+      <a href="videos.html">视频</a>
+      <a href="contact.html">联系</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="overview-section" id="deck">
+    <div class="container">
+      <div class="overview-head">
+        <div class="overview-title">
+          <span class="kicker"><span class="dot"></span>PORTFOLIO INDEX · 36 PAGES</span>
+          <h1>品牌市场全链路操盘案例集</h1>
+          <p class="sub">圈圈（陈玉倩）· 快消 / 服饰箱包 / 电商</p>
+        </div>
+        <div class="overview-actions">
+          <a class="btn btn-primary" href="full.html">打开完整作品集</a>
+        </div>
+      </div>
+      <div class="select-frame">
+        <iframe src="deck-select.html" title="品牌市场全链路作品集 · 精选导览"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="cases-section" id="cases">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <span class="kicker"><span class="dot"></span>S-LEVEL CASES · 7 CASES</span>
+          <h2>S级案例导览</h2>
+        </div>
+        <p class="sec-note">点击图片可看完整案例。</p>
+      </div>
+      <div class="case-grid" id="caseGrid"></div>
+    </div>
+  </section>
+
+  <section class="videos-section" id="videos">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <span class="kicker"><span class="dot"></span>CONTENT CREATIVE</span>
+          <h2>内容创意</h2>
+        </div>
+      </div>
+      <div class="video-grid" id="videoGrid"></div>
+      <div class="media-grid" id="mediaGrid"></div>
+    </div>
+  </section>
+
+  <section class="cap-section" id="capabilities">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <span class="kicker"><span class="dot"></span>CAPABILITY MAP</span>
+          <h2>能力地图</h2>
+        </div>
+      </div>
+      <div class="select-frame">
+        <iframe src="cap-deck.html" title="能力地图 · 操盘闭环与工作价值观"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contact">
+    <div class="container contact-inner">
+      <span class="kicker"><span class="dot"></span>COOPERATION</span>
+      <h2>合作意向</h2>
+      <div class="contact-cols">
+        <div>
+          <span class="c-label">求职方向</span>
+          <p>品牌经理 / 市场经理 / 项目经理</p>
+        </div>
+        <div>
+          <span class="c-label">可承接项目</span>
+          <p>品牌全案 / 活动策划 / 营销传播 / 媒介投放</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-foot">圈圈（陈玉倩）· 品牌市场全链路操盘案例集</footer>
+<script>
+  const CASES = [
+    {slug:'kugou', name:'IMXS × 酷狗音乐联名整合营销', label:'IP联名', img:'assets/images/slide09-08.jpg', color:'#328CFF'},
+    {slug:'space', name:'回力 × 中国航天联名整合营销', label:'IP联名', img:'assets/images/space-main-01.jpg', color:'#328CFF'},
+    {slug:'store', name:'网红一日店长活动', label:'全域整合', img:'assets/images/slide15-16.jpg', color:'#FF7043'},
+    {slug:'feide', name:'菲德茜茜品牌工艺直播大场', label:'全域整合', img:'assets/images/slide34-23.jpg', color:'#FF7043'},
+    {slug:'jd921', name:'抖音 921 电商节点营销', label:'全域整合', img:'assets/images/jd921-poster-01.jpg', color:'#FF7043'},
+    {slug:'nv', name:'女神发疯三八热点营销', label:'节点热点', img:'assets/images/nv-01.gif', color:'#7B1FA2'},
+    {slug:'tianzhi', name:'回力中高端品牌线营销升级', label:'品牌视觉', img:'assets/images/tianzhi-result-01.jpg', color:'#1A1A2E'}
+  ];
+  const VIDEOS = [
+    {src:'assets/videos/city-video-1.mp4', poster:'assets/images/city-poster.webp', title:'城旅系列 · 创意视频 01', tag:'IP联名 · 广州城旅'},
+    {src:'assets/videos/city-video-2.mp4', poster:'assets/images/city-poster-1.webp', title:'城旅系列 · 创意视频 02', tag:'IP联名 · 广州城旅'},
+    {src:'assets/videos/city-video-3.mp4', poster:'assets/images/city-poster-2.webp', title:'城旅系列 · 创意视频 03', tag:'IP联名 · 广州城旅'}
+  ];
+  const MEDIA = [
+    {img:'assets/images/slide44-33.jpg', title:'IMXS 种草 · 案例素材 01', tag:'媒介种草'},
+    {img:'assets/images/slide44-37.jpg', title:'IMXS 种草 · 案例素材 02', tag:'媒介种草'},
+    {img:'assets/images/slide45-41.jpg', title:'回力种草 · 案例素材 01', tag:'媒介种草'},
+    {img:'assets/images/slide45-45.jpg', title:'回力种草 · 案例素材 02', tag:'媒介种草'}
+  ];
+  const caseGrid = document.getElementById('caseGrid');
+  const videoGrid = document.getElementById('videoGrid');
+  const mediaGrid = document.getElementById('mediaGrid');
+  CASES.forEach(function(c){
+    const card = document.createElement('a');
+    card.className = 'case-card';
+    card.href = 'case-' + c.slug + '.html';
+    card.innerHTML =
+      '<span class="case-thumb"><img src="' + c.img + '" alt="' + c.name + '" loading="lazy"></span>' +
+      '<span class="case-meta"><span class="case-name">' + c.name + '</span>' +
+      '<span class="case-tag"><span class="tag-dot" style="background:' + c.color + '"></span>' + c.label + '</span></span>';
+    caseGrid.appendChild(card);
+  });
+  VIDEOS.forEach(function(v){
+    const card = document.createElement('article');
+    card.className = 'video-card';
+    card.innerHTML =
+      '<div class="video-frame">' +
+        '<video src="' + v.src + '" poster="' + v.poster + '" preload="metadata" playsinline controls></video>' +
+        '<button class="play-btn" type="button" aria-label="播放">' +
+          '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"></path></svg>' +
+        '</button>' +
+      '</div>' +
+      '<div class="video-meta"><div class="v-title">' + v.title + '</div><div class="v-tag">' + v.tag + '</div></div>';
+    const video = card.querySelector('video');
+    const playBtn = card.querySelector('.play-btn');
+    playBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      video.play();
+    });
+    card.addEventListener('click', function(e){
+      if (e.target.closest('video')) return;
+      if (video.paused) video.play();
+      else video.pause();
+    });
+    video.addEventListener('play', function(){ card.classList.add('playing'); });
+    video.addEventListener('pause', function(){ card.classList.remove('playing'); });
+    videoGrid.appendChild(card);
+  });
+  MEDIA.forEach(function(m){
+    const card = document.createElement('article');
+    card.className = 'media-card';
+    card.innerHTML =
+      '<span class="media-thumb"><img src="' + m.img + '" alt="' + m.title + '" loading="lazy"></span>' +
+      '<span class="media-meta"><span class="media-title">' + m.title + '</span><span class="media-tag">' + m.tag + '</span></span>';
+    mediaGrid.appendChild(card);
+  });
+</script>
+</body>
+</html>

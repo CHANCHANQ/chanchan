@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>合作意向 · 圈圈（陈玉倩）</title>
+<style>
+  :root{
+    --blue:#328CFF; --orange:#FF7043; --teal:#009688; --purple:#7B1FA2; --navy:#1A1A2E; --gray:#4A5568;
+    --ink:#101828; --muted:#667085; --line:#E6E8EF; --paper:#F5F7FA;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{
+    background:#E9EDF3;
+    font-family:"Inter","Noto Sans SC","Microsoft YaHei","PingFang SC",sans-serif;
+    color:var(--ink); overflow:hidden;
+  }
+  #deck{
+    position:fixed; left:50%; top:50%; width:1280px; height:720px;
+    transform:translate(-50%,-50%) scale(var(--scale,1));
+    transform-origin:center center;
+    background:#fff; box-shadow:0 24px 70px rgba(16,24,40,.22);
+  }
+  #track{position:absolute; inset:0; display:flex; transition:transform .45s cubic-bezier(.22,.61,.36,1);}
+  .slide{position:relative; flex:0 0 1280px; width:1280px; height:720px; background:#fff; overflow:hidden;}
+
+  .topbar{
+    position:absolute; top:0; left:0; right:0; height:56px;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 64px; border-bottom:1px solid var(--line); z-index:2;
+  }
+  .sec-label{display:flex; align-items:center; gap:10px; font-size:13px; font-weight:600; color:var(--muted);}
+  .sec-dot{width:10px; height:10px; display:inline-block;}
+  .case-no{font-size:13px; font-weight:600; color:var(--muted);}
+
+  .page{
+    position:absolute; top:56px; left:0; right:0; bottom:64px;
+    padding:40px 64px 28px; display:flex; flex-direction:column;
+  }
+  .page-title{font-size:36px; line-height:1.15; font-weight:800;}
+  .page-sub{margin-top:8px; font-size:15px; color:var(--muted); font-weight:600;}
+  .eyebrow{font-size:13px; font-weight:700; color:var(--blue); margin-bottom:10px;}
+
+  .flow{flex:1; display:flex; gap:16px; align-items:stretch; margin-top:34px;}
+  .flow-item{flex:1; border-top:3px solid var(--blue); padding-top:14px; display:flex; flex-direction:column;}
+  .flow-item .step{font-size:13px; font-weight:800; color:var(--blue);}
+  .flow-item h3{font-size:18px; line-height:1.3; margin-top:10px;}
+  .flow-item p{font-size:13px; color:var(--muted); line-height:1.6; margin-top:8px;}
+  .flow-note{margin-top:auto; padding-top:16px; border-top:1px solid var(--line); font-size:13px; color:var(--muted);}
+
+  .profile-grid{flex:1; display:grid; grid-template-columns:.9fr 1.1fr; gap:36px; margin-top:18px;}
+  .profile-left{display:flex; flex-direction:column; gap:12px;}
+  .p-label{font-size:13px; color:var(--muted); font-weight:700; margin-bottom:6px;}
+  .p-value{font-size:18px; font-weight:800;}
+  .p-value.mid{font-size:15px; line-height:1.6; font-weight:600; color:#3A4356;}
+  .profile-right{border-left:1px solid var(--line); padding-left:36px; display:flex; flex-direction:column;}
+  .p-intro{font-size:16px; line-height:1.9; color:#3A4356;}
+  .p-tags{margin-top:auto; display:flex; flex-wrap:wrap; gap:10px;}
+  .p-tag{padding:8px 14px; border:1px solid var(--line); font-size:13px; font-weight:600; background:#fff;}
+  .photo-placeholder{
+    width:104px; height:138px; background:#E8ECF2; border:1px dashed #C4CDDA;
+    display:flex; align-items:center; justify-content:center;
+    color:#94A3B8; font-size:11px; font-weight:600;
+  }
+  .cap-block{padding:7px 0; border-bottom:1px solid var(--line);}
+  .cap-block:last-child{border-bottom:0;}
+  .cap-block .t{font-size:14px; font-weight:800; margin-bottom:4px;}
+  .cap-block .d{font-size:12.5px; line-height:1.55; color:#3A4356;}
+
+  .timeline{flex:1; display:flex; flex-direction:column; justify-content:center; margin-top:28px;}
+  .tl-row{
+    display:grid; grid-template-columns:180px 1fr 1.35fr; gap:20px; align-items:center;
+    padding:15px 0; border-bottom:1px solid var(--line);
+  }
+  .tl-row:first-child{border-top:1px solid var(--line);}
+  .tl-date{font-size:16px; font-weight:800;}
+  .tl-company{font-size:19px; font-weight:800;}
+  .tl-role{font-size:14px; color:var(--muted); margin-top:4px; font-weight:600;}
+  .tl-note{font-size:12px; color:var(--muted); line-height:1.55; text-align:right;}
+  .tl-tags{margin-top:16px; display:flex; gap:10px;}
+  .tl-tag{padding:8px 14px; border:1px solid var(--line); font-size:13px; font-weight:600;}
+
+  .cap-list{flex:1; display:flex; flex-direction:column; justify-content:center; margin-top:28px;}
+  .cap-row{
+    display:grid; grid-template-columns:64px 220px 1fr; gap:24px; align-items:center;
+    padding:18px 0; border-bottom:1px solid var(--line);
+  }
+  .cap-row:first-child{border-top:1px solid var(--line);}
+  .cap-row .num{font-size:15px; font-weight:800; color:var(--blue);}
+  .cap-row .name{font-size:17px; font-weight:800;}
+  .cap-row .desc{font-size:13px; color:var(--muted); line-height:1.6;}
+
+  .section-cover{position:absolute; inset:0; color:#fff; display:flex; flex-direction:column; justify-content:space-between; padding:64px;}
+  .sc-top{display:flex; justify-content:space-between; align-items:flex-start;}
+  .sc-num{font-size:110px; font-weight:800; line-height:.9;}
+  .sc-title{font-size:66px; font-weight:800; line-height:1.05;}
+  .sc-sub{font-size:16px; opacity:.85; margin-top:16px; max-width:520px; line-height:1.6;}
+  .sc-list{border-top:1px solid rgba(255,255,255,.35);}
+  .sc-item{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:13px 0; border-bottom:1px solid rgba(255,255,255,.35);
+    font-size:15px; font-weight:600;
+  }
+  .sc-item span:last-child{font-size:12px; opacity:.75;}
+
+  .case-body{
+    position:absolute; top:56px; left:0; right:0; bottom:64px;
+    display:grid; grid-template-columns:1.12fr .88fr; gap:44px;
+    padding:44px 64px 36px;
+  }
+  .case-left{display:flex; flex-direction:column;}
+  .case-left h2{font-size:42px; line-height:1.12; font-weight:800;}
+  .case-desc{margin-top:8px; font-size:17px; color:var(--muted); font-weight:600;}
+  .highlight{
+    margin-top:20px; padding:12px 16px; border-left:4px solid var(--blue);
+    background:#F3F8FF; font-size:15px; line-height:1.55; font-weight:600;
+  }
+  .narratives{margin-top:22px; display:flex; flex-direction:column; gap:14px; flex:1;}
+  .narr-item{display:grid; grid-template-columns:72px 1fr; gap:14px; padding-top:14px; border-top:1px solid var(--line);}
+  .narr-item .k{font-size:14px; font-weight:800; color:var(--blue); padding-top:1px;}
+  .narr-item .v{font-size:14px; line-height:1.6; color:#3A4356;}
+  .case-right{display:flex; flex-direction:column; gap:16px;}
+  .img-card{flex:0 0 auto; display:flex; flex-direction:column;}
+  .img-card .frame{aspect-ratio:var(--ar,3/4); width:100%; max-width:320px; margin:0 auto; flex:none;}
+  .frame{
+    flex:1; min-height:0; background:#F1F3F6; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .frame img{width:100%; height:100%; object-fit:contain; display:block;}
+  .cap{
+    display:flex; gap:10px; align-items:baseline;
+    padding-top:9px; font-size:12px; color:var(--muted);
+  }
+  .cap b{color:var(--ink); font-weight:700;}
+  .kpis{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+  .kpi{padding:12px 12px 11px; border:1px solid var(--line); border-top:3px solid var(--blue); background:#fff;}
+  .kpi .n{font-size:18px; font-weight:800; line-height:1.2;}
+  .kpi .l{font-size:11px; color:var(--muted); line-height:1.45; margin-top:5px;}
+
+  .gallery-body{
+    position:absolute; top:56px; left:0; right:0; bottom:64px;
+    display:flex; flex-direction:column; padding:36px 64px 30px;
+  }
+  .g-head{display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:22px;}
+  .g-head h2{font-size:32px; font-weight:800;}
+  .g-head .sub{font-size:15px; color:var(--muted); font-weight:600; margin-top:6px;}
+  .g-tag{font-size:13px; font-weight:700; color:var(--blue); padding:7px 12px; border:1px solid var(--blue); white-space:nowrap;}
+  .g-grid{flex:1; min-height:0; display:flex; align-items:flex-end; justify-content:space-between; gap:8px;}
+  .g-item{display:flex; flex-direction:column; min-width:0;}
+  .g-item .frame{flex:none; height:320px; width:auto; aspect-ratio:var(--ar);}
+  .g-item .cap{padding-top:8px; max-width:100%;}
+  .g-item .cap .idx{font-weight:800;}
+  .g-grid.cols2{display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:end;}
+  .g-grid.cols2 .frame{height:200px; width:100%;}
+  .g-grid.cols3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px 10px; align-items:end;}
+  .g-grid.cols3 .frame{height:200px; width:100%;}
+  .g-grid.cols3 .frame img{object-fit:contain;}
+  .g-grid.cols3.cover .frame img{object-fit:cover;}
+  .g-grid.row2{display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:auto auto; gap:12px; align-items:end;}
+  .g-grid.row2 .frame{height:200px; width:100%;}
+  .g-grid.row2 .wide{grid-column:1/-1;}
+  .g-grid.row2 .wide .frame{height:150px;}
+  .g-item.tall .frame{height:365px;}
+  .g-note{margin-top:16px; font-size:12px; color:var(--muted); line-height:1.6;}
+
+  .split-body{
+    position:absolute; top:56px; left:0; right:0; bottom:64px;
+    display:grid; grid-template-columns:1.1fr .9fr; gap:48px; padding:44px 64px 36px;
+  }
+  .bullet-list{flex:1; display:flex; flex-direction:column; justify-content:center; gap:14px;}
+  .bullet{display:grid; grid-template-columns:30px 1fr; gap:12px; padding:16px 0; border-bottom:1px solid var(--line); align-items:start;}
+  .bullet .n{font-size:14px; font-weight:800; color:var(--blue); padding-top:1px;}
+  .bullet .t{font-size:14px; line-height:1.6; color:#3A4356;}
+  .tag-row{margin-top:22px; display:flex; gap:10px;}
+  .tag{padding:8px 14px; border:1px solid var(--blue); color:var(--blue); font-size:13px; font-weight:700;}
+  .note-card{
+    margin-top:16px; padding:18px; border:1px solid var(--line); background:#F8FAFC;
+    font-size:13px; line-height:1.7; color:var(--muted);
+  }
+  .data-grid{flex:1; display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:24px;}
+  .data-cell{padding:14px 16px; border:1px solid var(--line); border-top:3px solid var(--blue); background:#fff;}
+  .data-cell .n{font-size:28px; font-weight:800; line-height:1.1;}
+  .data-cell .l{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.5;}
+  .metric-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  .metric{padding:10px 12px; border:1px solid var(--line); border-top:3px solid var(--blue); background:#fff;}
+  .metric .n{font-size:20px; font-weight:800; line-height:1.1;}
+  .metric .l{font-size:11px; color:var(--muted); margin-top:4px; line-height:1.4;}
+  .stat-strip{
+    display:grid; grid-template-columns:repeat(6,1fr);
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    margin-top:16px;
+  }
+  .stat-strip.cols4{grid-template-columns:repeat(4,1fr);}
+  .stat-strip .stat{padding:10px 12px; border-left:1px solid var(--line);}
+  .stat-strip .stat:first-child{border-left:0;}
+  .stat-strip .n{font-size:24px; font-weight:800; line-height:1.1; white-space:nowrap;}
+  .stat-strip .l{font-size:11px; color:var(--muted); margin-top:5px; line-height:1.4;}
+  .media-placeholder{
+    aspect-ratio:16/10; background:#E8ECF2; border:1px dashed #C4CDDA;
+    display:flex; align-items:center; justify-content:center;
+    color:#94A3B8; font-size:12px; font-weight:600;
+  }
+  .v-placeholder{
+    aspect-ratio:3/4; background:#E8ECF2; border:1px dashed #C4CDDA;
+    display:flex; align-items:center; justify-content:center;
+    color:#94A3B8; font-size:12px; font-weight:600; text-align:center; padding:8px;
+  }
+
+  .takeaway{
+    position:absolute; left:0; right:0; bottom:0; height:64px;
+    display:flex; align-items:center; gap:14px;
+    padding:0 64px; border-top:1px solid var(--line);
+    font-size:14px; color:var(--muted); background:#fff; z-index:2;
+  }
+  .takeaway b{color:var(--ink); font-weight:700; white-space:nowrap;}
+
+  .cover-inner{
+    position:absolute; top:0; left:0; right:0; bottom:10px;
+    display:grid; grid-template-columns:1.25fr .75fr; gap:48px;
+    padding:76px 64px 56px;
+  }
+  .cover-main{display:flex; flex-direction:column; justify-content:center;}
+  .cover-eyebrow{font-size:14px; font-weight:600; color:var(--blue); margin-bottom:22px;}
+  .cover-title{font-size:84px; line-height:1.06; font-weight:800; letter-spacing:0;}
+  .cover-title span{display:block;}
+  .cover-title .accent{color:var(--blue);}
+  .cover-sub{margin-top:26px; font-size:20px; font-weight:600;}
+  .cover-scope{margin-top:8px; font-size:15px; color:var(--muted);}
+  .cover-path{margin-top:34px; padding-top:16px; border-top:1px solid var(--line); font-size:13px; color:var(--muted); line-height:1.7;}
+  .cover-side{display:flex; flex-direction:column; justify-content:space-between; padding-top:14px;}
+  .sections{border-top:1px solid var(--line);}
+  .sec-row{
+    display:grid; grid-template-columns:46px 14px 1fr; align-items:center; gap:14px;
+    height:86px; border-bottom:1px solid var(--line);
+  }
+  .sec-row .num{font-size:15px; font-weight:700; color:var(--muted);}
+  .sec-row .bar{width:10px; height:10px;}
+  .sec-row .name{font-size:17px; font-weight:600;}
+  .cover-id{display:flex; justify-content:space-between; align-items:flex-end; font-size:13px; color:var(--muted);}
+  .color-strip{position:absolute; left:0; right:0; bottom:0; height:10px; display:flex;}
+  .color-strip i{flex:1;}
+
+  .nav{position:fixed; bottom:16px; left:50%; transform:translateX(-50%); display:flex; gap:6px; z-index:60;}
+  .nav button{width:18px; height:4px; border:0; background:#C7CFDC; cursor:pointer; padding:0;}
+  .nav button.active{background:#101828;}
+
+  .page-no{margin-left:auto; font-weight:800; white-space:nowrap;}
+  .cover-page{position:absolute; right:64px; bottom:56px; font-size:13px; font-weight:800; opacity:.85;}
+
+  @media print{
+    @page{ size: 13.333in 7.5in; margin: 0; }
+    html,body{ width:1280px; height:auto; overflow:visible; background:#fff; }
+    #deck{ position:static; width:auto; height:auto; transform:none !important; box-shadow:none; }
+    #track{ display:block; transform:none !important; }
+    .slide{ position:relative; width:1280px; height:720px; page-break-after: always; break-after: page; }
+    .slide:last-child{ page-break-after: auto; }
+    .nav, #editBar, #mediaPanel, #resizeHandle{ display:none !important; }
+  }
+</style>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="site-head"><div class="container head-inner"><a class="brand" href="index.html"><span class="mark"></span>圈圈（陈玉倩）<small>品牌市场全链路</small></a><nav class="site-nav" aria-label="页面导航"><a href="index.html">首页</a><a href="about.html">关于</a><a href="cases.html">案例</a><a href="full.html">完整版</a><a href="videos.html">视频</a><a href="contact.html" class="active">联系</a></nav></div></header><main>
+<section class="page-hero"><div class="container"><span class="kicker"><span class="dot"></span>COOPERATION</span><h1>合作意向</h1><p class="hero-sub">求职品牌 / 市场 / 项目经理，可承接全案、活动、传播与投放。</p></div></section><section class="page-body"><div class="container"><div class="slide-embed"><div class="embed-head"><span>合作意向</span><span>48 / 49</span></div><div class="embed-frame"><section class="slide" id="s48">
+      <div class="topbar">
+        <div class="sec-label"><span class="sec-dot" style="background:var(--navy)"></span>收尾</div>
+        <div class="case-no">合作意向</div>
+      </div>
+      <div class="page">
+        <div class="eyebrow">COOPERATION</div>
+        <h2 class="page-title">合作意向</h2>
+        <div style="flex:1; display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center; margin-top:24px;">
+          <div style="border:1px solid var(--line); border-top:3px solid var(--navy); padding:22px;">
+            <div style="font-size:15px; font-weight:800; margin-bottom:12px;">求职方向</div>
+            <div style="font-size:15px; line-height:2; color:#3A4356;">品牌经理<br>市场经理<br>项目经理</div>
+          </div>
+          <div style="border:1px solid var(--line); border-top:3px solid var(--navy); padding:22px;">
+            <div style="font-size:15px; font-weight:800; margin-bottom:12px;">可承接项目</div>
+            <div style="font-size:15px; line-height:2; color:#3A4356;">品牌全案 / 活动策划<br>营销传播策划 / 直播活动<br>媒介投放</div>
+          </div>
+        </div>
+      </div>
+      <div class="takeaway"><b>◆ 本页要点</b>求职品牌 / 市场 / 项目经理，可承接全案、活动、传播与投放。<span class="page-no">48 / 49</span></div>
+    </section></div></div><div class="slide-embed"><div class="embed-head"><span>第 49 页</span><span>49 / 49</span></div><div class="embed-frame"><section class="slide" id="s49">
+      <div class="section-cover" style="background:var(--navy)">
+        <div class="sc-top">
+          <div class="sc-num" style="font-size:64px;">THANKS</div>
+          <div style="text-align:right; font-size:14px; opacity:.8; font-weight:600;">END</div>
+        </div>
+        <div>
+          <div class="sc-title">谢谢观看</div>
+          <p class="sc-sub">圈圈（陈玉倩）· 品牌市场全链路操盘案例集</p>
+        </div>
+        <div class="sc-list">
+          <div class="sc-item"><span>求职</span><span>品牌经理 · 市场经理 · 项目经理</span></div>
+          <div class="sc-item"><span>合作</span><span>品牌全案 · 活动策划 · 营销传播 · 媒介投放</span></div>
+        </div>
+      </div>
+</section></div></div></div></section>
+</main>
+<footer class="site-foot">圈圈（陈玉倩）· 品牌市场全链路操盘案例集</footer><script src="assets/site.js"></script>
+</body>
+</html>
